@@ -1,3 +1,0 @@
-gnupg.symlink/*
-
-!gnupg.symlink/gpg-agent.conf

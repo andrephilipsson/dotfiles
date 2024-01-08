@@ -1,2 +1,0 @@
-ssh/ssh.symlink/config	diff=git-cipher	filter=git-cipher	merge=git-cipher
-zsh/hash.private	diff=git-cipher	filter=git-cipher	merge=git-cipher

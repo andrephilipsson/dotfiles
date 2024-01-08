@@ -1,3 +1,0 @@
-#!/bin/sh
-
-./vendor/git-cipher/bin/git-cipher $@

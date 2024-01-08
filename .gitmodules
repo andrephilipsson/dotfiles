@@ -1,3 +1,0 @@
-[submodule "git-cipher"]
-	path = vendor/git-cipher
-	url = https://github.com/andrephilipsson/git-cipher.git
