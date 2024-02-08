@@ -1,0 +1,19 @@
+# Shortcuts for paths.
+# (eg. cd ~www; but also, `jump www`/`j www`)
+# For a full list, run `hash -d` (alias `d`).
+
+() {
+  # local SOME_DIR=...
+  # test -d $SOME_DIR && hash -d $SHORTCUT=$SOME_DIR
+
+  local DOT="$HOME/Developer/dotfiles"
+  test -d $DOT && hash -d dot=$DOT
+
+  local PRIVATE="$HOME/.config/zsh/hash.private"
+  if grep 'com\.wincent\.git-cipher' "$PRIVATE" &> /dev/null; then
+    # Don't source still-encrypted file.
+  else
+    # Source it if it's actually there.
+    test -e "$PRIVATE" && source "$PRIVATE"
+  fi
+}
