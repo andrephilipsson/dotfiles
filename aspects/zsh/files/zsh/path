@@ -110,6 +110,7 @@ prepend_to MANPATH /usr/share/man
 
 prepend_to PATH "$HOME/.config/zsh/bin"
 prepend_to PATH "$HOME/bin"
+prepend_to PATH "$HOME/Developer/dotfiles/bin"
 
 # If you ever want to see this in easy-to-read form: `echo $PATH | tr : '\n'`
 export PATH
