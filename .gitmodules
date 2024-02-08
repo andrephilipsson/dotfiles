@@ -55,3 +55,6 @@
 [submodule "corpus"]
 	path = aspects/nvim/files/.config/nvim/pack/plugin/opt/corpus
 	url = git@github.com:wincent/corpus.git
+[submodule "git-cipher"]
+	path = vendor/git-cipher
+	url = git@github.com:wincent/git-cipher.git
