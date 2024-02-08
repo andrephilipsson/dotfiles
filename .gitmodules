@@ -1,0 +1,57 @@
+[submodule "skim"]
+	path = aspects/zsh/files/zsh/skim
+	url = git@github.com:lotabout/skim.git
+[submodule "zsh-async"]
+	path = aspects/zsh/files/zsh/zsh-async
+	url = git@github.com:mafredri/zsh-async.git
+[submodule "zsh-autosuggestions"]
+	path = aspects/zsh/files/zsh/zsh-autosuggestions
+	url = git@github.com:zsh-users/zsh-autosuggestions.git
+[submodule "zsh-history-substring-search"]
+	path = aspects/zsh/files/zsh/zsh-history-substring-search
+	url = git@github.com:zsh-users/zsh-history-substring-search.git
+[submodule "zsh-syntax-highlighting"]
+	path = aspects/zsh/files/zsh/zsh-syntax-highlighting
+	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
+[submodule "command-t"]
+	path = aspects/nvim/files/.config/nvim/pack/plugin/opt/command-t
+	url = git@github.com:wincent/command-t.git
+[submodule "material.nvim"]
+	path = aspects/nvim/files/.config/nvim/pack/plugin/opt/material.nvim
+	url = git@github.com:marko-cerovac/material.nvim.git
+[submodule "nvim-lspconfig"]
+	path = aspects/nvim/files/.config/nvim/pack/plugin/opt/nvim-lspconfig
+	url = git@github.com:neovim/nvim-lspconfig.git
+[submodule "pinnacle"]
+	path = aspects/nvim/files/.config/nvim/pack/plugin/opt/pinnacle
+	url = git@github.com:wincent/pinnacle.git
+[submodule "cmp-buffer"]
+	path = aspects/nvim/files/.config/nvim/pack/plugin/opt/cmp-buffer
+	url = git@github.com:hrsh7th/cmp-buffer.git
+[submodule "cmp-calc"]
+	path = aspects/nvim/files/.config/nvim/pack/plugin/opt/cmp-calc
+	url = git@github.com:hrsh7th/cmp-calc.git
+[submodule "cmp-emoji"]
+	path = aspects/nvim/files/.config/nvim/pack/plugin/opt/cmp-emoji
+	url = git@github.com:hrsh7th/cmp-emoji.git
+[submodule "cmp-nvim-lsp"]
+	path = aspects/nvim/files/.config/nvim/pack/plugin/opt/cmp-nvim-lsp
+	url = git@github.com:hrsh7th/cmp-nvim-lsp.git
+[submodule "cmp-path"]
+	path = aspects/nvim/files/.config/nvim/pack/plugin/opt/cmp-path
+	url = git@github.com:hrsh7th/cmp-path.git
+[submodule "cmp_luasnip"]
+	path = aspects/nvim/files/.config/nvim/pack/plugin/opt/cmp_luasnip
+	url = git@github.com:saadparwaiz1/cmp_luasnip.git
+[submodule "nvim-cmp"]
+	path = aspects/nvim/files/.config/nvim/pack/plugin/opt/nvim-cmp
+	url = git@github.com:hrsh7th/nvim-cmp.git
+[submodule "LuaSnip"]
+	path = aspects/nvim/files/.config/nvim/pack/plugin/opt/LuaSnip
+	url = git@github.com:L3MON4D3/LuaSnip.git
+[submodule "cmp-nvim-lua"]
+	path = aspects/nvim/files/.config/nvim/pack/plugin/opt/cmp-nvim-lua
+	url = git@github.com:hrsh7th/cmp-nvim-lua.git
+[submodule "corpus"]
+	path = aspects/nvim/files/.config/nvim/pack/plugin/opt/corpus
+	url = git@github.com:wincent/corpus.git
