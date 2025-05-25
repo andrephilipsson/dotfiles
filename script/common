@@ -1,26 +1,10 @@
 #!/usr/bin/env bash
 
-# Taken from https://github.com/wincent/wincent/blob/9d61b3fbafc16d4da2a1f1a4f5c8cc988abde096/bin/common
-
 # https://stackoverflow.com/a/2684300
 if [[ "${BASH_SOURCE[0]}" = "${0}" ]]; then
   echo "[error] script \"$0\" is intended to be sourced, not executed directly"
   exit 1
 fi
-
-# Get directory of current script:
-#
-#     https://stackoverflow.com/a/12694189/2103996
-
-# and convert to absolute path:
-#
-#     https://stackoverflow.com/a/4045350/2103996
-#
-REPO_ROOT=$(cd "${BASH_SOURCE%/*}/.." && pwd)
-
-BIN_DIR="$REPO_ROOT/bin"
-
-export PATH="$BIN_DIR":$PATH
 
 # https://stackoverflow.com/a/5947802/2103996
 BOLD='\033[0;1m'

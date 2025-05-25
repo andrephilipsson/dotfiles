@@ -1,0 +1,51 @@
+[user]
+	name = André Philipsson
+	email = andre@philipsson.me
+	signingkey = 7256A6EDC5E37A9E
+
+[init]
+	defaultBranch = main
+
+[pull]
+	ff = only
+
+[pager]
+	status = true
+
+[interactive]
+	diffFilter = delta --color-only --features=interactive
+
+[log]
+	decorate = short
+
+[delta]
+	line-numbers = true
+	side-by-side = true
+
+[alias]
+	ci = commit
+	co = checkout
+	delta = "!f() { git diff \"$@\" | delta; }; f"
+	last = log -1 HEAD
+	st = status
+	update = pull --rebase origin
+	nah = "!f(){ git reset --hard; git clean -df; if [ -d ".git/rebase-apply" ] || [ -d ".git/rebase-merge" ]; then git rebase --abort; fi; }; f"
+
+[commit]
+	gpgsign = true
+
+[merge]
+	conflictStyle = zdiff3
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[push]
+	autoSetupRemote = true
+
+[rebase]
+	autosquash = true
+	updateRefs = true

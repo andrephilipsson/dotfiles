@@ -1,2 +1,2 @@
-home/.ssh/config	diff=git-cipher	filter=git-cipher	merge=git-cipher
-home/.aws/config	diff=git-cipher	filter=git-cipher	merge=git-cipher
+files/.aws/config	diff=git-cipher	filter=git-cipher	merge=git-cipher
+files/.ssh/config	diff=git-cipher	filter=git-cipher	merge=git-cipher

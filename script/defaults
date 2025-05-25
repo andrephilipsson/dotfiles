@@ -1,18 +1,67 @@
 #!/usr/bin/env bash
 
-# Exit immediately if a command exits with a non-zero status
 set -e
 
-# Source common functions
 source "$(dirname "$0")/common"
 
 # Dock
-defaults write com.apple.dock autohide-delay -int 0
-defaults write com.apple.dock autohide-time-modifier -float 0.4
+defaults write com.apple.dock "autohide" -bool "true"
+defaults write com.apple.dock "autohide-delay" -int "0"
+defaults write com.apple.dock "autohide-time-modifier" -float "0.4"
+defaults write com.apple.dock "show-recents" -bool "false"
+defaults write com.apple.dock "tilesize" -int "48"
+
+defaults write com.apple.dock persistent-apps -array
+
+dockItems=(
+    /System/Applications/Calendar.app
+    /Applications/Spotify.app
+    /Applications/Ghostty.app
+    /Applications/Zed.app
+)
+
+for dockItem in "${dockItems[@]}"; do
+  defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>$dockItem</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+done
+
+# 0: No Option
+# 2: Mission Control
+# 3: Show application windows
+# 4: Desktop
+# 5: Start screen saver
+# 6: Disable screen saver
+# 7: Dashboard
+# 10: Put display to sleep
+# 11: Launchpad
+# 12: Notification Center
+# 13: Lock Screen
+defaults write com.apple.dock wvous-bl-corner -int 11
+defaults write com.apple.dock wvous-br-corner -int 4
+
+# Keyboard
+defaults write -g "InitialKeyRepeat" -int "10"
+defaults write -g "KeyRepeat" -int "1"
+defaults write -g "ApplePressAndHoldEnabled" -bool "false"
+
+# Trackpad
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadThreeFingerDrag" -bool "true"
+defaults write com.apple.AppleMultitouchTrackpad "Clicking" -bool "true"
+
+# Finder
+defaults write com.apple.finder "QuitMenuItem" -bool "true"
+defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true"
+defaults write com.apple.finder "ShowPathbar" -bool "true"
+defaults write com.apple.finder "FXPreferredViewStyle" -string "Nlsv"
+defaults write com.apple.finder "_FXSortFoldersFirst" -bool "true"
+# Search in current folder
+defaults write com.apple.finder "FXDefaultSearchScope" -string "SCcf"
+defaults write com.apple.finder "FXRemoveOldTrashItems" -bool "true"
+defaults write com.apple.finder "FXEnableExtensionChangeWarning" -bool "false"
+defaults write com.apple.finder "_FXSortFoldersFirstOnDesktop" -bool "true"
+
+# Use Touch ID for sudo
+echo "auth       optional       /opt/homebrew/lib/pam/pam_reattach.so" | sudo tee /etc/pam.d/sudo_local
+sed -e 's/^#auth/auth/' /etc/pam.d/sudo_local.template | sudo tee -a /etc/pam.d/sudo_local
 
 killall Dock
-
-# Keyboard repeat
-defaults write -g InitialKeyRepeat -int 10
-defaults write -g KeyRepeat -int 1
-defaults write -g ApplePressAndHoldEnabled -bool false
+killall Finder

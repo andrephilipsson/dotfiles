@@ -1,0 +1,3 @@
+macos-titlebar-style = tabs
+window-save-state = never
+theme = "light:gruvbox-dark-hard,dark:gruvbox-dark-hard"

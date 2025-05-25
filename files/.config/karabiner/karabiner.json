@@ -1,0 +1,64 @@
+{
+  "global": {
+    "check_for_updates_on_startup": false,
+    "show_in_menu_bar": false
+  },
+  "profiles": [
+    {
+      "complex_modifications": {
+        "rules": [
+          {
+            "description": "Left and Right Shift together toggle Caps Lock",
+            "manipulators": [
+              {
+                "from": {
+                  "modifiers": { "optional": ["any"] },
+                  "simultaneous": [
+                    { "key_code": "left_shift" },
+                    { "key_code": "right_shift" }
+                  ]
+                },
+                "to": [{ "key_code": "caps_lock" }],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "Change Caps Lock to Esc when tapped, Alt + Shift when held down",
+            "manipulators": [
+              {
+                "from": {
+                  "key_code": "caps_lock",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": {
+                  "key_code": "left_shift",
+                  "lazy": true,
+                  "modifiers": ["left_option"]
+                },
+                "to_if_alone": [{ "key_code": "escape" }],
+                "type": "basic"
+              }
+            ]
+          }
+        ]
+      },
+      "name": "Default profile",
+      "selected": true,
+      "simple_modifications": [
+        {
+          "from": { "key_code": "grave_accent_and_tilde" },
+          "to": [{ "key_code": "non_us_backslash" }]
+        },
+        {
+          "from": { "key_code": "non_us_backslash" },
+          "to": [{ "key_code": "grave_accent_and_tilde" }]
+        }
+      ],
+      "virtual_hid_keyboard": {
+        "country_code": 0,
+        "keyboard_type_v2": "iso"
+      }
+    }
+  ]
+}
