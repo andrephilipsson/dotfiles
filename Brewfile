@@ -40,6 +40,7 @@ cask "zed"
 cask "font-jetbrains-mono"
 cask "font-source-code-pro"
 
+mas "1Password for Safari", id: 1569813296
 mas "Hand Mirror", id: 1502839586
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
