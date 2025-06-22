@@ -60,14 +60,8 @@ defaults write com.apple.finder "FXRemoveOldTrashItems" -bool "true"
 defaults write com.apple.finder "FXEnableExtensionChangeWarning" -bool "false"
 defaults write com.apple.finder "_FXSortFoldersFirstOnDesktop" -bool "true"
 
-# Use Touch ID for sudo
-echo "auth       optional       /opt/homebrew/lib/pam/pam_reattach.so" | sudo tee /etc/pam.d/sudo_local
-sed -e 's/^#auth/auth/' /etc/pam.d/sudo_local.template | sudo tee -a /etc/pam.d/sudo_local
-
 # Font smoothing
 defaults -currentHost write -g AppleFontSmoothing -int 0
-
-scutil --set LocalHostName m1
 
 killall Dock
 killall Finder
