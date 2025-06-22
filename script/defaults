@@ -63,5 +63,8 @@ defaults write com.apple.finder "_FXSortFoldersFirstOnDesktop" -bool "true"
 echo "auth       optional       /opt/homebrew/lib/pam/pam_reattach.so" | sudo tee /etc/pam.d/sudo_local
 sed -e 's/^#auth/auth/' /etc/pam.d/sudo_local.template | sudo tee -a /etc/pam.d/sudo_local
 
+# Font smoothing
+defaults -currentHost write -g AppleFontSmoothing -int 0
+
 killall Dock
 killall Finder
