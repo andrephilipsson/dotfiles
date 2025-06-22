@@ -14,10 +14,11 @@ defaults write com.apple.dock "tilesize" -int "48"
 defaults write com.apple.dock persistent-apps -array
 
 dockItems=(
-    /System/Applications/Calendar.app
-    /Applications/Spotify.app
-    /Applications/Ghostty.app
-    /Applications/Zed.app
+  /System/Applications/Calendar.app
+  /Applications/Spotify.app
+  /System/Cryptexes/App/System/Applications/Safari.app
+  /Applications/Ghostty.app
+  /Applications/Zed.app
 )
 
 for dockItem in "${dockItems[@]}"; do
