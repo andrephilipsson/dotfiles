@@ -19,6 +19,14 @@
   "project_panel": {
     "auto_fold_dirs": false
   },
+  "tab_bar": {
+    "show_tab_bar_buttons": false,
+    "show_nav_history_buttons": false
+  },
+  "toolbar": {
+    "breadcrumbs": true,
+    "quick_actions": false
+  },
   "theme": {
     "mode": "system",
     "light": "Gruvbox Dark Hard",
