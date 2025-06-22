@@ -23,6 +23,18 @@
     "show_tab_bar_buttons": false,
     "show_nav_history_buttons": false
   },
+  "collaboration_panel": {
+    "button": false
+  },
+  "notification_panel": {
+    "button": false
+  },
+  "git_panel": {
+    "button": false
+  },
+  "search": {
+    "button": false
+  },
   "toolbar": {
     "breadcrumbs": true,
     "quick_actions": false
