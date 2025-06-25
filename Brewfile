@@ -37,7 +37,7 @@ cask "raycast"
 cask "slack"
 cask "spotify"
 cask "tableplus"
-cask "tailscale"
+cask "tailscale-app"
 cask "zed"
 
 cask "font-jetbrains-mono"
