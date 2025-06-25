@@ -10,6 +10,7 @@ brew "mas"
 brew "pam-reattach"
 brew "ripgrep"
 brew "stow"
+brew "svtplay-dl"
 brew "tmux"
 brew "vim"
 
