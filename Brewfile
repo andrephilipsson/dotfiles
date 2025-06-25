@@ -1,6 +1,7 @@
 brew "bat"
 brew "cloc"
 brew "eza"
+brew "ffmpeg"
 brew "fish"
 brew "gh"
 brew "git"
