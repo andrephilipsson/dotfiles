@@ -8,6 +8,10 @@ alias ll="ls -la"
 alias ls="eza"
 alias t="tmux"
 
+set -x ANDROID_HOME "$HOME/Library/Android/sdk"
+fish_add_path "$ANDROID_HOME/emulator"
+fish_add_path "$ANDROID_HOME/platform-tools"
+
 fish_add_path "/opt/homebrew/bin"
 fish_add_path "$HOME/.orbstack/bin"
 fish_add_path "$HOME/Developer/dotfiles/bin"
