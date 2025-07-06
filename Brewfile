@@ -48,6 +48,7 @@ cask "font-source-code-pro"
 mas "1Password for Safari", id: 1569813296
 mas "Hand Mirror", id: 1502839586
 mas "Keynote", id: 409183694
+mas "Minimal Theme for Twitter / X", id: 1668204600
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Xcode", id: 497799835
