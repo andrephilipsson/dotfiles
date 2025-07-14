@@ -13,6 +13,7 @@ brew "ripgrep"
 brew "stow"
 brew "svtplay-dl"
 brew "tmux"
+brew "tree"
 brew "vim"
 
 cask "1password"
