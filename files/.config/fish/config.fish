@@ -23,6 +23,8 @@ end
 if status is-interactive
     source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 
+    direnv hook fish | source
+
     # Load Ghostty's shell integration in sub-shells, e.g. when running `flox activate`
     if test -n "$GHOSTTY_RESOURCES_DIR"
         source "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish"

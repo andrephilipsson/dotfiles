@@ -1,5 +1,6 @@
 brew "bat"
 brew "cloc"
+brew "direnv"
 brew "eza"
 brew "ffmpeg"
 brew "fish"
