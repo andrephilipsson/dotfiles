@@ -20,7 +20,7 @@
     "diagnostics": false
   },
   "vim_mode": true,
-  "ui_font_size": 16,
+  "ui_font_size": 14,
   "buffer_font_size": 16,
   "ui_font_family": "Source Code Pro",
   "buffer_font_family": "Source Code Pro",
@@ -28,7 +28,8 @@
   "pane_split_direction_horizontal": "down",
   "max_tabs": 5,
   "project_panel": {
-    "auto_fold_dirs": false
+    "auto_fold_dirs": false,
+    "entry_spacing": "standard"
   },
   "tab_bar": {
     "show_tab_bar_buttons": false,
