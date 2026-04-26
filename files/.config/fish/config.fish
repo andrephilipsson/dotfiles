@@ -15,9 +15,14 @@ fish_add_path "$ANDROID_HOME/platform-tools"
 fish_add_path "/opt/homebrew/bin"
 fish_add_path "$HOME/.orbstack/bin"
 fish_add_path "$HOME/Developer/dotfiles/bin"
+fish_add_path "$HOME/.local/bin"
 
 if isatty
     set -x GPG_TTY (tty)
+end
+
+if command -v substrate > /dev/null
+    . $(substrate shell-completion | psub)
 end
 
 if status is-interactive
@@ -30,3 +35,4 @@ if status is-interactive
         source "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish"
     end
 end
+
