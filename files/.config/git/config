@@ -3,6 +3,9 @@
 	email = andre@philipsson.me
 	signingkey = 7256A6EDC5E37A9E
 
+[includeIf "gitdir:~/Developer/vetyfinder/"]
+    path = ~/Developer/dotfiles/files/.config/git/config-vetyfinder
+
 [init]
 	defaultBranch = main
 
@@ -40,17 +43,18 @@
 [merge]
 	conflictStyle = zdiff3
 
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-
 [push]
 	autoSetupRemote = true
 
 [rebase]
 	autosquash = true
 	updateRefs = true
+
 [advice]
 	skippedCherryPicks = false
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
