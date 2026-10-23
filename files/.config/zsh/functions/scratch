@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+local scratch_dir
+scratch_dir=$(mktemp -d) || return
+print -r -- "Spawning subshell in scratch directory:"
+print -r -- "  $scratch_dir"
+
+local shell_status=0
+(builtin cd -- "$scratch_dir" && /opt/homebrew/bin/zsh) || shell_status=$?
+
+print -r -- "Removing scratch directory"
+command rm -rf -- "$scratch_dir"
+return $shell_status

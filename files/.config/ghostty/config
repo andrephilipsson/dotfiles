@@ -1,5 +1,5 @@
 macos-titlebar-style = tabs
 window-save-state = never
-theme = Gruvbox Dark Hard
-font-family = Source Code Pro
-font-size = 15
+theme = light:Gruvbox Light Hard,dark:Gruvbox Dark Hard
+font-family = Berkeley Mono
+font-size = 14

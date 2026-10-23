@@ -1,0 +1,235 @@
+min_version = "2026.10.18"
+
+[bootstrap.packages]
+"brew:bat" = "latest"
+"brew:cloc" = "latest"
+"brew:eza" = "latest"
+"brew:ffmpeg" = "latest"
+"brew:fzf" = "latest"
+"brew:gh" = "latest"
+"brew:git" = "latest"
+"brew:git-lfs" = "latest"
+"brew:gnupg" = "latest"
+"brew:mas" = "latest"
+"brew:neovim" = "latest"
+"brew:openssl@4" = "latest"
+"brew:pam-reattach" = "latest"
+"brew:ripgrep" = "latest"
+"brew:svtplay-dl" = "latest"
+"brew:tmux" = "latest"
+"brew:tree" = "latest"
+"brew:yt-dlp" = "latest"
+"brew:zsh" = "latest"
+"brew:zsh-autosuggestions" = "latest"
+"brew:zsh-history-substring-search" = "latest"
+"brew:zsh-syntax-highlighting" = "latest"
+
+"brew-cask:1password" = "latest"
+"brew-cask:1password-cli" = "latest"
+"brew-cask:amp-app" = "latest"
+"brew-cask:android-studio" = "latest"
+"brew-cask:arq" = "latest"
+"brew-cask:cleanshot" = "latest"
+"brew-cask:discord" = "latest"
+"brew-cask:ghostty" = "latest"
+"brew-cask:google-chrome" = "latest"
+"brew-cask:istat-menus" = "latest"
+"brew-cask:karabiner-elements" = "latest"
+"brew-cask:microsoft-excel" = "latest"
+"brew-cask:microsoft-outlook" = "latest"
+"brew-cask:microsoft-teams" = "latest"
+"brew-cask:microsoft-word" = "latest"
+"brew-cask:obsidian" = "latest"
+"brew-cask:orbstack" = "latest"
+"brew-cask:raycast" = "latest"
+"brew-cask:slack" = "latest"
+"brew-cask:spotify" = "latest"
+"brew-cask:tableplus" = "latest"
+"brew-cask:tailscale-app" = "latest"
+"brew-cask:zed" = "latest"
+
+"mas:1569813296" = "latest" # 1Password for Safari
+"mas:1502839586" = "latest" # Hand Mirror
+"mas:6720708363" = "latest" # Obsidian Web Clipper
+"mas:6745342698" = "latest" # uBlock Origin Lite
+"mas:497799835" = "latest" # Xcode
+
+[bootstrap.brew]
+adopt = true
+
+# Apply after packages so pam-reattach is installed before sudo loads it.
+[bootstrap.files."/etc/pam.d/sudo_local"]
+owner = "root"
+group = "wheel"
+mode = "0644"
+content = """
+# Touch ID for sudo, including inside tmux.
+auth       optional       /opt/homebrew/lib/pam/pam_reattach.so
+auth       sufficient     pam_tid.so
+"""
+
+[dotfiles]
+"~/.config/bat/config" = { source = "files/.config/bat/config", mode = "symlink" }
+"~/.config/ghostty/config" = { source = "files/.config/ghostty/config", mode = "symlink" }
+"~/.config/git/config" = { source = "files/.config/git/config", mode = "symlink" }
+"~/.config/git/config-vetyfinder" = { source = "files/.config/git/config-vetyfinder", mode = "symlink" }
+"~/.config/git/ignore" = { source = "files/.config/git/ignore", mode = "symlink" }
+"~/.config/karabiner/karabiner.json" = { source = "files/.config/karabiner/karabiner.json", mode = "symlink" }
+"~/.config/tmux/tmux.conf" = { source = "files/.config/tmux/tmux.conf", mode = "symlink" }
+"~/.config/zed/settings.json" = { source = "files/.config/zed/settings.json", mode = "symlink" }
+"~/.config/zsh/.zprofile" = { source = "files/.config/zsh/.zprofile", mode = "symlink" }
+"~/.config/zsh/.zshrc" = { source = "files/.config/zsh/.zshrc", mode = "symlink" }
+"~/.config/zsh/functions/git" = { source = "files/.config/zsh/functions/git", mode = "symlink" }
+"~/.config/zsh/functions/scratch" = { source = "files/.config/zsh/functions/scratch", mode = "symlink" }
+"~/.gnupg/gpg-agent.conf" = { source = "files/.gnupg/gpg-agent.conf", mode = "symlink" }
+"~/.hushlogin" = { source = "files/.hushlogin", mode = "symlink" }
+"~/.ssh/config" = { source = "files/.ssh/config", mode = "symlink" }
+"~/.zshenv" = { source = "files/.zshenv", mode = "symlink" }
+
+[bootstrap.user]
+login_shell = "/opt/homebrew/bin/zsh"
+
+[bootstrap.macos.dock]
+autohide = true
+show_recents = false
+tilesize = 48
+
+[bootstrap.macos.finder]
+show_pathbar = true
+show_extensions_warning = false
+preferred_view_style = "list"
+
+[bootstrap.macos.keyboard]
+initial_key_repeat = 10
+key_repeat = 1
+press_and_hold = false
+
+[bootstrap.macos.trackpad]
+tap_to_click = true
+three_finger_drag = true
+
+[bootstrap.macos.defaults]
+"NSGlobalDomain" = { AppleShowAllExtensions = true }
+
+[bootstrap.macos.defaults."com.apple.finder"]
+QuitMenuItem = true
+_FXSortFoldersFirst = true
+# Search in the current folder by default.
+FXDefaultSearchScope = "SCcf"
+FXRemoveOldTrashItems = true
+_FXSortFoldersFirstOnDesktop = true
+
+[bootstrap.macos.defaults."com.apple.dock"]
+autohide-delay = 0
+autohide-time-modifier = 0.4
+
+# 0: No Option
+# 2: Mission Control
+# 3: Show application windows
+# 4: Desktop
+# 5: Start screen saver
+# 6: Disable screen saver
+# 7: Dashboard
+# 10: Put display to sleep
+# 11: Launchpad
+# 12: Notification Center
+# 13: Lock Screen
+wvous-bl-corner = 11
+wvous-br-corner = 4
+
+[bootstrap.hooks.pre-packages]
+run = "cd {{ config_root | quote }} && ./bin/mise run configure-hostname"
+
+[bootstrap.hooks.post-defaults]
+run = """
+defaults write com.apple.dock persistent-apps -array
+
+for dock_item in \
+  /System/Applications/Calendar.app \
+  /Applications/Spotify.app \
+  /Applications/Safari.app \
+  /Applications/Amp.app
+do
+  # Do not add missing apps to the Dock.
+  [ -d "$dock_item" ] || continue
+  # Safari's /Applications entry is a symlink; pin the app without a link badge.
+  dock_item=$(/bin/realpath "$dock_item")
+  defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>$dock_item</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+done
+
+defaults -currentHost write -g AppleFontSmoothing -int 0
+
+killall Dock || true
+killall Finder || true
+"""
+
+[tasks.bootstrap]
+description = "Finish machine setup after packages, dotfiles, and macOS settings"
+dir = "{{ config_root }}"
+shell = "/bin/bash -e -c"
+run = """
+git_remote_url=$(git remote get-url origin)
+case "$git_remote_url" in
+  https://github.com/*)
+    ssh_remote_url="git@github.com:${git_remote_url#https://github.com/}"
+    # Do not switch until both host trust and repository access work over SSH.
+    if GIT_SSH_COMMAND='ssh -o BatchMode=yes -o ConnectTimeout=10 -o StrictHostKeyChecking=yes' git ls-remote "$ssh_remote_url" HEAD >/dev/null 2>&1; then
+      git remote set-url origin "$ssh_remote_url"
+    else
+      echo 'Keeping HTTPS: finish 1Password SSH setup, then run ./bin/mise run bootstrap again.'
+    fi
+    ;;
+esac
+"""
+
+[tasks.configure-hostname]
+description = "Save and apply this Mac's friendly name and hostname"
+dir = "{{ config_root }}"
+raw = true
+shell = "/bin/bash -e -c"
+env.DOTFILES_COMPUTER_NAME = "{{ vars.computer_name | default(value='') }}"
+env.DOTFILES_HOSTNAME = "{{ vars.hostname | default(value='') }}"
+run = """
+save_names=false
+if [ -z "$DOTFILES_COMPUTER_NAME" ] || [ -z "$DOTFILES_HOSTNAME" ]; then
+  if [ ! -t 0 ]; then
+    echo 'Set vars.computer_name and vars.hostname in mise.local.toml, or run ./bin/mise run configure-hostname in a terminal.' >&2
+    exit 1
+  fi
+  if [ -z "$DOTFILES_COMPUTER_NAME" ]; then
+    read -r -p 'Friendly computer name (for AirDrop and sharing): ' DOTFILES_COMPUTER_NAME
+  fi
+  if [ -z "$DOTFILES_HOSTNAME" ]; then
+    read -r -p 'Hostname (letters, numbers, and hyphens): ' DOTFILES_HOSTNAME
+  fi
+  save_names=true
+fi
+
+if [[ ! "$DOTFILES_COMPUTER_NAME" =~ [^[:space:]] ]]; then
+  echo 'The friendly computer name must not be blank.' >&2
+  exit 1
+fi
+if [[ ! "$DOTFILES_HOSTNAME" =~ ^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$ ]]; then
+  echo 'The hostname must contain 1–63 letters, numbers, or hyphens, and must start and end with a letter or number.' >&2
+  exit 1
+fi
+
+if "$save_names"; then
+  touch mise.local.toml
+  ./bin/mise config set --file mise.local.toml --type string -- vars.computer_name "$DOTFILES_COMPUTER_NAME"
+  ./bin/mise config set --file mise.local.toml --type string -- vars.hostname "$DOTFILES_HOSTNAME"
+fi
+
+for preference in ComputerName LocalHostName HostName; do
+  if [ "$preference" = ComputerName ]; then
+    intended_name=$DOTFILES_COMPUTER_NAME
+  else
+    intended_name=$DOTFILES_HOSTNAME
+  fi
+  current_name=$(scutil --get "$preference" 2>/dev/null || true)
+  if [ "$current_name" != "$intended_name" ]; then
+    printf 'Setting %s to %s\\n' "$preference" "$intended_name"
+    sudo scutil --set "$preference" "$intended_name"
+  fi
+done
+"""

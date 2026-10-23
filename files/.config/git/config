@@ -1,10 +1,10 @@
 [user]
 	name = André Philipsson
 	email = andre@philipsson.me
-	signingkey = 7256A6EDC5E37A9E
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvdouuejuxabTf0R41rIhPcJcVmJvRzxfwDKnVD7IWd
 
 [includeIf "gitdir:~/Developer/vetyfinder/"]
-    path = ~/Developer/dotfiles/files/.config/git/config-vetyfinder
+    path = ~/.config/git/config-vetyfinder
 
 [init]
 	defaultBranch = main
@@ -15,20 +15,12 @@
 [pager]
 	status = true
 
-[interactive]
-	diffFilter = delta --color-only --features=interactive
-
 [log]
 	decorate = short
-
-[delta]
-	line-numbers = true
-	side-by-side = true
 
 [alias]
 	ci = commit
 	co = checkout
-	delta = "!f() { git diff \"$@\" | delta; }; f"
 	last = log -1 HEAD
 	st = status
 	update = pull --rebase origin
@@ -39,6 +31,12 @@
 
 [tag]
 	gpgSign = true
+
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 
 [merge]
 	conflictStyle = zdiff3
