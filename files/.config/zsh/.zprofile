@@ -1,4 +1,6 @@
 # Login shells run this after macOS's /etc/zprofile and path_helper.
+export EDITOR=nvim
+export VISUAL=nvim
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 typeset -U PATH path
 path=(
