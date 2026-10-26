@@ -1,0 +1,67 @@
+# Keep Git off the interactive path: only the background worker scans files.
+autoload -Uz add-zsh-hook
+zmodload zsh/system
+
+_prompt_git_result() {
+  local fd=$1 result
+  if [[ -z $2 || $2 == hup ]]; then
+    IFS= read -r -u $fd result
+  fi
+  zle -F $fd
+  exec {fd}<&-
+  _prompt_fd=0
+  _prompt_pid=''
+
+  # Branch names can contain %, which must not become prompt escapes.
+  _prompt_git=${result//\%/%%}
+  [[ -n $_prompt_git ]] && _prompt_git="%F{244}${_prompt_git}%f "
+  PROMPT="%F{cyan}%~%f ${_prompt_git}${_prompt_mark}"
+  zle reset-prompt
+}
+
+_prompt_precmd() {
+  local exit_status=$?
+  _prompt_mark='❯ '
+  (( exit_status )) && _prompt_mark='%F{red}❯%f '
+
+  # Discard pending work before starting a check for this prompt/directory.
+  if (( _prompt_fd )); then
+    zle -F $_prompt_fd
+    exec {_prompt_fd}<&-
+    _prompt_fd=0
+    if [[ -o monitor ]]; then
+      kill -TERM -- -$_prompt_pid 2>/dev/null
+    else
+      kill -TERM -- $_prompt_pid 2>/dev/null
+    fi
+    _prompt_pid=''
+  fi
+
+  # Keep the last result during refresh, but never carry it to another directory.
+  if [[ $_prompt_directory != $PWD ]]; then
+    _prompt_git=''
+    _prompt_directory=$PWD
+  fi
+  PROMPT="%F{cyan}%~%f ${_prompt_git}${_prompt_mark}"
+
+  exec {_prompt_fd}< <(
+    print -r -- $sysparams[pid]
+    local output line branch oid dirty
+    output=$(command git --no-optional-locks status --porcelain=v2 --branch --no-ahead-behind --untracked-files=normal 2>/dev/null)
+    for line in ${(f)output}; do
+      case $line in
+        '# branch.head '*) branch=${line#\# branch.head } ;;
+        '# branch.oid '*) oid=${line#\# branch.oid } ;;
+        '# '*) ;;
+        *) dirty=' ●' ;;
+      esac
+    done
+    [[ $branch == '(detached)' ]] && branch=${oid[1,7]}
+    print -r -- "${branch}${dirty}"
+  )
+  # This handshake precedes Git; it never waits for the repository scan.
+  read -r _prompt_pid <&$_prompt_fd
+  zle -F $_prompt_fd _prompt_git_result
+}
+
+add-zsh-hook precmd _prompt_precmd

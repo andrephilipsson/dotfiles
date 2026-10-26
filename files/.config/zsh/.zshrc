@@ -49,7 +49,8 @@ fi
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 
-PROMPT='%F{cyan}%~%f %# '
+autoload -Uz prompt-init
+prompt-init
 
 # Also enable Ghostty integration in shells started from tmux.
 if [[ -n "$GHOSTTY_RESOURCES_DIR" && -r "$GHOSTTY_RESOURCES_DIR/shell-integration/zsh/ghostty-integration" ]]; then

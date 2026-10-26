@@ -80,6 +80,7 @@ auth       sufficient     pam_tid.so
 "~/.config/zsh/.zprofile" = { source = "files/.config/zsh/.zprofile", mode = "symlink" }
 "~/.config/zsh/.zshrc" = { source = "files/.config/zsh/.zshrc", mode = "symlink" }
 "~/.config/zsh/functions/git" = { source = "files/.config/zsh/functions/git", mode = "symlink" }
+"~/.config/zsh/functions/prompt-init" = { source = "files/.config/zsh/functions/prompt-init", mode = "symlink" }
 "~/.config/zsh/functions/scratch" = { source = "files/.config/zsh/functions/scratch", mode = "symlink" }
 "~/.gnupg/gpg-agent.conf" = { source = "files/.gnupg/gpg-agent.conf", mode = "symlink" }
 "~/.hushlogin" = { source = "files/.hushlogin", mode = "symlink" }
