@@ -75,6 +75,7 @@ auth       sufficient     pam_tid.so
 "~/.config/git/config-vetyfinder" = { source = "files/.config/git/config-vetyfinder", mode = "symlink" }
 "~/.config/git/ignore" = { source = "files/.config/git/ignore", mode = "symlink" }
 "~/.config/karabiner/karabiner.json" = { source = "files/.config/karabiner/karabiner.json", mode = "symlink" }
+"~/.config/openlogi/config.toml" = { source = "files/.config/openlogi/config.toml", mode = "symlink" }
 "~/.config/tmux/tmux.conf" = { source = "files/.config/tmux/tmux.conf", mode = "symlink" }
 "~/.config/zed/settings.json" = { source = "files/.config/zed/settings.json", mode = "symlink" }
 "~/.config/zsh/.zprofile" = { source = "files/.config/zsh/.zprofile", mode = "symlink" }
