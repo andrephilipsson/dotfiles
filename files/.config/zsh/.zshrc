@@ -5,6 +5,9 @@ if [[ ! -o login ]]; then
   source "$ZDOTDIR/.zprofile"
 fi
 
+# Update tools and environment variables when changing directories.
+eval "$(mise activate zsh)"
+
 if [[ -t 0 ]]; then
   export GPG_TTY=$TTY
 fi
