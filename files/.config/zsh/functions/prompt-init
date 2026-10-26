@@ -1,6 +1,9 @@
 # Keep Git off the interactive path: only the background worker scans files.
 autoload -Uz add-zsh-hook
 zmodload zsh/system
+_prompt_refresh=1
+
+_prompt_preexec() { _prompt_refresh=1 }
 
 _prompt_git_result() {
   local fd=$1 result
@@ -23,6 +26,13 @@ _prompt_precmd() {
   local exit_status=$?
   _prompt_mark='❯ '
   (( exit_status )) && _prompt_mark='%F{red}❯%f '
+
+  # Empty Enter needs only the cached prompt, not another process or handshake.
+  if (( ! _prompt_refresh )) && [[ $_prompt_directory == $PWD ]]; then
+    PROMPT="%F{cyan}%~%f ${_prompt_git}${_prompt_mark}"
+    return 0
+  fi
+  _prompt_refresh=0
 
   # Discard pending work before starting a check for this prompt/directory.
   if (( _prompt_fd )); then
@@ -64,4 +74,5 @@ _prompt_precmd() {
   zle -F $_prompt_fd _prompt_git_result
 }
 
+add-zsh-hook preexec _prompt_preexec
 add-zsh-hook precmd _prompt_precmd

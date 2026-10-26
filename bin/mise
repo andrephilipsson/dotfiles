@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/bash
+# macOS's system Bash avoids the startup cost of Homebrew Bash.
 set -eu
 
 __mise_bootstrap() {
