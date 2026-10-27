@@ -18,18 +18,22 @@ _prompt_git_result() {
   # Branch names can contain %, which must not become prompt escapes.
   _prompt_git=${result//\%/%%}
   [[ -n $_prompt_git ]] && _prompt_git="%F{244}${_prompt_git}%f "
-  PROMPT="%F{cyan}%~%f ${_prompt_git}${_prompt_mark}"
+  PROMPT="%F{blue}%B%~%b%f${_prompt_status} ${_prompt_git}${_prompt_mark}"
   zle reset-prompt
 }
 
 _prompt_precmd() {
   local exit_status=$?
-  _prompt_mark='❯ '
-  (( exit_status )) && _prompt_mark='%F{red}❯%f '
+  # Save the exit status so an asynchronous Git redraw cannot clear the
+  # failure indicator.
+  _prompt_status='%F{yellow}%B%(1j.*.)'
+  (( exit_status )) && _prompt_status+='!'
+  _prompt_status+='%b%f'
+  _prompt_mark='%B%F{red}❯%f%b '
 
   # Empty Enter needs only the cached prompt, not another process or handshake.
   if (( ! _prompt_refresh )) && [[ $_prompt_directory == $PWD ]]; then
-    PROMPT="%F{cyan}%~%f ${_prompt_git}${_prompt_mark}"
+    PROMPT="%F{blue}%B%~%b%f${_prompt_status} ${_prompt_git}${_prompt_mark}"
     return 0
   fi
   _prompt_refresh=0
@@ -52,7 +56,7 @@ _prompt_precmd() {
     _prompt_git=''
     _prompt_directory=$PWD
   fi
-  PROMPT="%F{cyan}%~%f ${_prompt_git}${_prompt_mark}"
+  PROMPT="%F{blue}%B%~%b%f${_prompt_status} ${_prompt_git}${_prompt_mark}"
 
   exec {_prompt_fd}< <(
     print -r -- $sysparams[pid]
