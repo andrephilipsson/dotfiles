@@ -70,6 +70,7 @@ auth       sufficient     pam_tid.so
 
 [dotfiles]
 "~/.config/bat/config" = { source = "files/.config/bat/config", mode = "symlink" }
+"~/.config/gh/config.yml" = { source = "files/.config/gh/config.yml", mode = "symlink" }
 "~/.config/ghostty/config" = { source = "files/.config/ghostty/config", mode = "symlink" }
 "~/.config/git/config" = { source = "files/.config/git/config", mode = "symlink" }
 "~/.config/git/config-vetyfinder" = { source = "files/.config/git/config-vetyfinder", mode = "symlink" }
