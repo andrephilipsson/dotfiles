@@ -1,9 +1,13 @@
 # Keep Git off the interactive path: only the background worker scans files.
 autoload -Uz add-zsh-hook
 zmodload zsh/system
+zmodload zsh/datetime
 _prompt_refresh=1
 
-_prompt_preexec() { _prompt_refresh=1 }
+_prompt_preexec() {
+  _prompt_refresh=1
+  _prompt_started=$EPOCHREALTIME
+}
 
 _prompt_git_result() {
   local fd=$1 result
@@ -24,6 +28,28 @@ _prompt_git_result() {
 
 _prompt_precmd() {
   local exit_status=$?
+  RPROMPT=''
+  if [[ -n $_prompt_started ]]; then
+    local -F elapsed=$(( EPOCHREALTIME - _prompt_started ))
+    unset _prompt_started
+    if (( elapsed > 1 )); then
+      local -i seconds=$elapsed
+      local duration=''
+      if (( seconds >= 86400 )); then
+        duration+="$(( seconds / 86400 ))d "
+        (( seconds %= 86400 ))
+      fi
+      if (( seconds >= 3600 )); then
+        duration+="$(( seconds / 3600 ))h "
+        (( seconds %= 3600 ))
+      fi
+      if (( seconds >= 60 )); then
+        duration+="$(( seconds / 60 ))m "
+        (( seconds %= 60 ))
+      fi
+      RPROMPT="%F{244}${duration}${seconds}s%f"
+    fi
+  fi
   # Save the exit status so an asynchronous Git redraw cannot clear the
   # failure indicator.
   _prompt_status='%F{yellow}%B%(1j.*.)'
