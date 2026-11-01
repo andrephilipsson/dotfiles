@@ -27,11 +27,25 @@ cd ~/Developer/dotfiles
 It asks for a computer name and hostname, then installs everything except the
 App Store apps.
 
-Once it's done, sign in to 1Password and turn on the SSH agent under
-Settings > Developer. Check it with `ssh -T git@github.com`, then sign in to
-the App Store.
+Once it's done, open a new terminal and create a non-exportable Secure Enclave
+key for this Mac. Approve with Touch ID.
 
-Open a new terminal and run bootstrap again. This time it picks up the App
+```sh
+mkdir -p ~/.ssh &&
+cd ~/.ssh &&
+/usr/sbin/sc_auth create-ctk-identity -l ssh -k p-256-ne -t bio &&
+/usr/bin/ssh-keygen -w /usr/lib/ssh-keychain.dylib -K -N "" &&
+mv -i id_ecdsa_sk_rk_ssh id_secure_enclave &&
+mv -i id_ecdsa_sk_rk_ssh.pub id_secure_enclave.pub
+```
+
+Leave the authenticator PIN blank and press Enter. The file without `.pub` is
+a key reference, the private key stays in the Secure Enclave.
+
+Add `~/.ssh/id_secure_enclave.pub` to GitHub as both an authentication key and
+a signing key.
+
+Sign in to the App Store, then open a new terminal and run bootstrap again. This time it picks up the App
 Store apps and switches the repo over to SSH:
 
 ```sh

@@ -2,6 +2,7 @@
 export EDITOR=nvim
 export VISUAL=nvim
 export ANDROID_HOME="$HOME/Library/Android/sdk"
+export SSH_SK_PROVIDER=/usr/lib/ssh-keychain.dylib
 typeset -U PATH path
 path=(
   "$HOME/.local/bin"

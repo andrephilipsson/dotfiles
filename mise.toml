@@ -48,7 +48,6 @@ min_version = "2026.10.18"
 "brew-cask:tailscale-app" = "latest"
 "brew-cask:zed" = "latest"
 
-"mas:1569813296" = "latest" # 1Password for Safari
 "mas:1502839586" = "latest" # Hand Mirror
 "mas:6720708363" = "latest" # Obsidian Web Clipper
 "mas:6745342698" = "latest" # uBlock Origin Lite
@@ -180,7 +179,7 @@ case "$git_remote_url" in
     if GIT_SSH_COMMAND='ssh -o BatchMode=yes -o ConnectTimeout=10 -o StrictHostKeyChecking=yes' git ls-remote "$ssh_remote_url" HEAD >/dev/null 2>&1; then
       git remote set-url origin "$ssh_remote_url"
     else
-      echo 'Keeping HTTPS: finish 1Password SSH setup, then run ./bin/mise run bootstrap again.'
+      echo 'Keeping HTTPS: finish Secure Enclave SSH setup, then run ./bin/mise run bootstrap again.'
     fi
     ;;
 esac
