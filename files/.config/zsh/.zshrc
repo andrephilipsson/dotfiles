@@ -89,11 +89,27 @@ fi
 if [[ -r /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]]; then
   source /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
-  # Keep fish-like history search on Up/Down.
-  bindkey '^[[A' history-substring-search-up
-  bindkey '^[[B' history-substring-search-down
-  bindkey '^[OA' history-substring-search-up
-  bindkey '^[OB' history-substring-search-down
+  # Move between lines before searching history, including at the buffer's end.
+  _up-line-or-history-search() {
+    if [[ $LBUFFER == *$'\n'* ]]; then
+      zle .up-line-or-history
+    else
+      zle history-substring-search-up
+    fi
+  }
+  _down-line-or-history-search() {
+    if [[ $RBUFFER == *$'\n'* ]]; then
+      zle .down-line-or-history
+    else
+      zle history-substring-search-down
+    fi
+  }
+  zle -N _up-line-or-history-search
+  zle -N _down-line-or-history-search
+  bindkey '^[[A' _up-line-or-history-search
+  bindkey '^[[B' _down-line-or-history-search
+  bindkey '^[OA' _up-line-or-history-search
+  bindkey '^[OB' _down-line-or-history-search
 fi
 
 # Activate after PATH setup. Keep directory/command updates, but do no external
